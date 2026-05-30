@@ -10,8 +10,7 @@ def main():
                 create_account()
                 break
             case 2:
-                print("Listar cuentas")1
-                
+                print("Listar cuentas")
             case 3:
                 break    
 
