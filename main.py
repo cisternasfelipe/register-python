@@ -6,7 +6,6 @@ def main():
         print(respuesta)
         match respuesta:
             case "1":
-                print("Crear cuenta")
                 create_account()
             case "2":
                 listar_cuentas()

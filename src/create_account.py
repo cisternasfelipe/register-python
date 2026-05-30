@@ -14,24 +14,42 @@ def password_validator(password: str = None) -> bool:
     print("Contraseña válida")
     return True
 
-def create_account() -> list:
-    nombre = input("Ingrese su nombre \n>")
-    apellido_paterno = input("Ingrese su apellido paterno \n>")
-    apellido_materno = input("Ingrese su apellido materno \n>")
-    if not password_validator():
-        print("No se pudo crear la cuenta")
-        return []
-    rut = input("Ingrese rut \n> ")
-    if not validar_rut(rut):
-        print(f"RUT no válido: {rut}")
-        return []
-    cuentas.append({
-        "nombre": nombre,
-        "apellido_paterno": apellido_paterno,
-        "apellido_materno": apellido_materno,
-        "rut": rut,
-    })
-    print(f"Cuenta creada: {nombre} {apellido_paterno} — RUT: {rut}")
+def existe_RUT(rut):
+    for cuenta in cuentas:
+        if cuenta["rut"] == rut:
+            return True
+    return False
+
+def create_account():
+    while True:
+        nombre = input("Ingrese su nombre \n>")
+        apellido_paterno = input("Ingrese su apellido paterno \n>")
+        apellido_materno = input("Ingrese su apellido materno \n>")
+
+        while True:
+            rut = input("Ingrese rut \n> ")
+            if not validar_rut(rut):
+                print("RUT no válido")
+            elif existe_RUT(rut):
+                print("RUT ya registrado")
+            else:
+                break
+
+        while True:
+            if password_validator():
+                break
+
+        cuentas.append({
+            "nombre": nombre,
+            "apellido_paterno": apellido_paterno,
+            "apellido_materno": apellido_materno,
+            "rut": rut,
+        })
+        print(f"Cuenta creada: {nombre} {apellido_paterno} — RUT: {rut}")
+
+        continuar = input("¿Desea continuar ingresando? (si/no)\n> ").lower()
+        if continuar != "si":
+            break
     
 def validar_rut(rut_str):
     # 1. Limpiar caracteres y convertir la 'k' a mayúscula
