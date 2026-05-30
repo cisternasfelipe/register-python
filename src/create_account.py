@@ -15,8 +15,10 @@ def password_validator(password: str = None) -> bool:
     return True
 
 def existe_RUT(rut):
+    rut_limpio = rut.replace(".", "").replace("-", "").upper()
     for cuenta in cuentas:
-        if cuenta["rut"] == rut:
+        cuenta_rut = cuenta["rut"].replace(".", "").replace("-", "").upper()
+        if cuenta_rut == rut_limpio:
             return True
     return False
 
