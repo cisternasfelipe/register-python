@@ -1,4 +1,4 @@
-from src.create_account import create_account
+from src.create_account import create_account, listar_cuentas
 
 def main():
     while True:
@@ -8,10 +8,9 @@ def main():
             case "1":
                 print("Crear cuenta")
                 create_account()
-                break
-            case 2:
-                print("Listar cuentas")
-            case 3:
+            case "2":
+                listar_cuentas()
+            case "3":
                 break    
 
 def main_menu():

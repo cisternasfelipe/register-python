@@ -1,20 +1,37 @@
 import re
 
-def password_validator() -> bool:
-    pass
+cuentas = []
+
+def password_validator(password: str = None) -> bool:
+    if password is None:
+        password = input("Ingrese su contraseña\n> ")
+    if len(password) < 8:
+        print("Error: mínimo 8 caracteres")
+        return False
+    if not any(caracter.isdigit() for caracter in password):
+        print("Error: debe contener al menos un número")
+        return False
+    print("Contraseña válida")
+    return True
 
 def create_account() -> list:
     nombre = input("Ingrese su nombre \n>")
     apellido_paterno = input("Ingrese su apellido paterno \n>")
     apellido_materno = input("Ingrese su apellido materno \n>")
+    if not password_validator():
+        print("No se pudo crear la cuenta")
+        return []
     rut = input("Ingrese rut \n> ")
-    if validar_rut(rut) is False:
-        print(f"rut no valido {rut}")
-
-    print(f"rut valido {rut}\n"
-          f"nombre: {nombre}\n"
-          f"apellido paterno: {apellido_paterno}  \n"
-          f"apellido materno: {apellido_materno}  \n")
+    if not validar_rut(rut):
+        print(f"RUT no válido: {rut}")
+        return []
+    cuentas.append({
+        "nombre": nombre,
+        "apellido_paterno": apellido_paterno,
+        "apellido_materno": apellido_materno,
+        "rut": rut,
+    })
+    print(f"Cuenta creada: {nombre} {apellido_paterno} — RUT: {rut}")
     
 def validar_rut(rut_str):
     # 1. Limpiar caracteres y convertir la 'k' a mayúscula
@@ -52,3 +69,11 @@ def validar_rut(rut_str):
         
     # 6. Comparación final
     return str(dv_calculado) == dv_ingresado
+
+def listar_cuentas():
+    if not cuentas:
+        print("No hay cuentas registradas")
+        return
+    for indice, cuenta in enumerate(cuentas, 1):
+        print(f"{indice}. {cuenta['nombre']} {cuenta['apellido_paterno']} "
+              f"{cuenta['apellido_materno']} — RUT: {cuenta['rut']}")
