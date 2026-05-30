@@ -10,11 +10,12 @@ def create_account() -> list:
     rut = input("Ingrese rut \n> ")
     if validar_rut(rut) is False:
         print(f"rut no valido {rut}")
-        
+
     print(f"rut valido {rut}\n"
           f"nombre: {nombre}\n"
           f"apellido paterno: {apellido_paterno}  \n"
           f"apellido materno: {apellido_materno}  \n")
+    
 def validar_rut(rut_str):
     # 1. Limpiar caracteres y convertir la 'k' a mayúscula
     rut_limpio = rut_str.replace(".", "").replace("-", "").upper()
